@@ -6,17 +6,17 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users/users');
+const todoRouter = require('./routes/todo/todo');
+require('dotenv').config();
 
 var app = express();
-
 const cors = require('cors');
 app.use(cors())
 const mongoose = require('mongoose');
 const passport = require('passport');
 app.use(passport.initialize());
 require('./routes/utils/auth/userPassport')(passport)
-require('dotenv').config();
-console.log('secret key:', process.env.SECRET_KEY)
+
 mongoose.connect(process.env.MONGODB_URI)
   .then(()=>console.log('MongoDB Connected'))
   .catch(err=>{console.log(err)})
@@ -33,6 +33,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/todo', todoRouter)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

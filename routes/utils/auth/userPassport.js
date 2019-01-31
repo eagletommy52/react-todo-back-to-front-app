@@ -3,7 +3,7 @@ const ExtractJwt = require('passport-jwt').ExtractJwt;
 
 const User = require('../../users/model/User');
 
-const keys = process.env.SECRET_KEY || 'NeverEverEverTellMeDaSecret';
+const keys = process.env.SECRET_KEY;
 
 const opts = {}
 
